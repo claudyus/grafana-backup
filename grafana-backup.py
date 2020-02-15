@@ -108,6 +108,9 @@ class GrafanaBackup:
       dashboards.append({'title': 'Home dashboard', 'uri': 'home'})
       for dash in dashboards:
         data = self.get_dashboard(dash['uri'])
+        if ('redirectUri' in data):
+          self.logger.error('Skipping redirect url')
+          continue
         # later needed to import it
         data['dashboard']['id'] = None
         uri = dash['uri']
